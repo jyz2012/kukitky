@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie处理工具</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .input-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-height: 150px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+        }
+        .copy-btn {
+            background-color: #2ecc71;
+            margin-top: 10px;
+        }
+        .copy-btn:hover {
+            background-color: #27ae60;
+        }
+        .instructions {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fef9e7;
+            border-left: 4px solid #f1c40f;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cookie处理工具</h1>
+        <p>将cookie中的分号替换为冒号并删除空格</p>
+        
+        <div class="input-group">
+            <label for="cookieInput">输入原始Cookie:</label>
+            <textarea id="cookieInput" placeholder="请粘贴您的Cookie内容..."></textarea>
+        </div>
+        
+        <button id="processBtn">处理Cookie</button>
+        
+        <div id="result" class="result">
+            <h3>处理后的结果:</h3>
+            <textarea id="processedCookie" readonly></textarea>
+            <button id="copyBtn" class="copy-btn">复制结果</button>
+        </div>
+        
+        <div class="instructions">
+            <h3>使用说明:</h3>
+            <p>1. 将需要处理的Cookie内容粘贴到上方的输入框中</p>
+            <p>2. 点击"处理Cookie"按钮</p>
+            <p>3. 查看处理后的结果</p>
+            <p>4. 点击"复制结果"按钮将处理后的Cookie复制到剪贴板</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const processBtn = document.getElementById('processBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const cookieInput = document.getElementById('cookieInput');
+            const processedCookie = document.getElementById('processedCookie');
+            const resultDiv = document.getElementById('result');
+            
+            // 处理Cookie按钮点击事件
+            processBtn.addEventListener('click', function() {
+                const inputCookie = cookieInput.value;
+                if (inputCookie.trim() === '') {
+                    alert('请输入Cookie内容');
+                    return;
+                }
+                
+                // 处理Cookie: 替换分号为冒号并删除空格
+                const processed = inputCookie.replace(/;/g, ':').replace(/\s+/g, '');
+                
+                // 显示结果
+                processedCookie.value = processed;
+                resultDiv.style.display = 'block';
+            });
+            
+            // 复制结果按钮点击事件
+            copyBtn.addEventListener('click', function() {
+                processedCookie.select();
+                document.execCommand('copy');
+                alert('已复制到剪贴板!');
+            });
+        });
+    </script>
+</body>
+</html>
